@@ -4,7 +4,7 @@ using System.Text;
 
 namespace NameSorter.Model
 {
-	class Name
+	public class Name
 	{
 		public string givenNames { get; set; }
 		public string surname { get; set; }

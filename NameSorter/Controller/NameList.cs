@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NameSorter.Controller
 {
-	class NameList : INameList
+	public class NameList : INameList
 	{
 		private List<Name> _nameList;
 
@@ -24,8 +24,7 @@ namespace NameSorter.Controller
 
 			foreach (var name in inputNames)
 			{
-				Name parsedName = ParseName(name);
-				_nameList.Add(parsedName);
+				AddName(name);
 			}
 		}
 
@@ -35,12 +34,12 @@ namespace NameSorter.Controller
 
 		public void AddName(string name)
 		{
-			_nameList.Add(ParseName(name));
-		}
+			Name nameToAdd = ParseName(name);
 
-		public void DeleteName(string name)
-		{
-			_nameList.Remove(GetName(name));
+			if (nameToAdd != null)
+			{
+				_nameList.Add(nameToAdd);
+			}
 		}
 
 		public IEnumerable<Name> GetAllNames()
@@ -55,22 +54,62 @@ namespace NameSorter.Controller
 			return _nameList.Find(nl => nl.givenNames == nameToFind.givenNames && nl.surname == nameToFind.surname);
 		}
 
+		public void SortBySurname()
+		{
+			_nameList.Sort(delegate(Name n1, Name n2)
+			{
+				int result = 0;
+
+				// If surnames match
+					// compare given names
+				// Else compare surnames
+
+				if (n1.surname == n2.surname)
+				{
+					result = n1.givenNames.CompareTo(n2.givenNames);
+				}
+				else
+				{
+					result = n1.surname.CompareTo(n2.surname);
+				}
+
+				return result;
+			});
+		}
+
 		// Helper method. Splits passed string up into given names and surname and returns Name object.
 		private Name ParseName(string name)
 		{
-			string[] splitName = name.Split(' ');
+			if (!String.IsNullOrEmpty(name))
+			{ 
+				string[] splitName = name.Split(' ');
 
-			string splitSurname = splitName[splitName.Length - 1];
-			string splitGivenNames = "";
+				// Determine last name
+				string splitSurname = splitName[splitName.Length - 1];
 
-			for (int i = 0; i < splitName.Length - 2; i++)
-				splitGivenNames += splitName[i];
+				string splitGivenNames = "";
+				// If string contains more than one word and thus has given names
+				if (splitName.Length > 1)
+				{
+					// Add first given name
+					splitGivenNames += splitName[0];
 
-			return new Name()
-			{
-				surname = splitSurname,
-				givenNames = splitGivenNames
-			};
+					// Has additional given names
+					if (splitName.Length > 2)
+					{
+						for (int i = 1; i <= splitName.Length - 2; i++)
+							splitGivenNames += " " + splitName[i];
+					}					
+				}			
+
+				return new Name()
+				{
+					surname = splitSurname,
+					givenNames = splitGivenNames
+				};
+			}
+
+			return null;
 		}
 	}
 }

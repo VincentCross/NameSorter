@@ -5,11 +5,11 @@ using System.Text;
 
 namespace NameSorter.Controller
 {
-	interface INameList
+	public interface INameList
 	{
 		void AddName(string name);
 		Name GetName(string name);
-		void DeleteName(string name);
 		IEnumerable<Name> GetAllNames();
+		void SortBySurname();
 	}
 }
