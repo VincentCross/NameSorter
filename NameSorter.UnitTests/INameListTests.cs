@@ -17,7 +17,7 @@ namespace NameSorter.UnitTests
 			INameList nameList = new NameList();
 
 			// Assert
-			Assert.IsTrue(((List<Name>)nameList.GetAllNames()).Count == 0);
+			Assert.IsTrue(nameList.GetAllNames().Count == 0);
 		}
 
 		[TestMethod]
@@ -30,7 +30,7 @@ namespace NameSorter.UnitTests
 			INameList nameList = new NameList(nameArray);
 
 			// Assert
-			Assert.IsTrue(((List<Name>)nameList.GetAllNames()).Count == 2);
+			Assert.IsTrue(nameList.GetAllNames().Count == 2);
 		}
 
 		[TestMethod]
@@ -89,7 +89,7 @@ namespace NameSorter.UnitTests
 			nameList.AddName(testName);
 
 			// Assert
-			Assert.IsTrue(((List<Name>)nameList.GetAllNames()).Count == 0);
+			Assert.IsTrue(nameList.GetAllNames().Count == 0);
 		}
 
 		[TestMethod]
@@ -103,7 +103,7 @@ namespace NameSorter.UnitTests
 			nameList.AddName(testName);
 
 			// Assert
-			Assert.IsTrue(((List<Name>)nameList.GetAllNames()).Count == 0);
+			Assert.IsTrue(nameList.GetAllNames().Count == 0);
 		}
 
 		
@@ -121,8 +121,8 @@ namespace NameSorter.UnitTests
 			INameList nameList = new NameList(nameArray);
 
 			// Act
-			nameList.SortBySurname();
-			List<Name> result = (List<Name>)nameList.GetAllNames();
+			nameList.Sort();
+			List<Name> result = nameList.GetAllNames();
 
 			// Assert
 			for (int i = 0; i < nameArray.Length; i++)
@@ -145,8 +145,8 @@ namespace NameSorter.UnitTests
 			INameList nameList = new NameList(nameArray);
 
 			// Act
-			nameList.SortBySurname();
-			List<Name> result = (List<Name>)nameList.GetAllNames();
+			nameList.Sort();
+			List<Name> result = nameList.GetAllNames();
 
 			// Assert
 			Assert.IsTrue(result[0].givenNames == "Order1");
@@ -170,8 +170,8 @@ namespace NameSorter.UnitTests
 			INameList nameList = new NameList(nameArray);
 
 			// Act
-			nameList.SortBySurname();
-			List<Name> result = (List<Name>)nameList.GetAllNames();
+			nameList.Sort();
+			List<Name> result = nameList.GetAllNames();
 
 			// Assert
 			Assert.IsTrue(result[0].givenNames == "Order1");

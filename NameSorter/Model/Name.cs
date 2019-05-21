@@ -8,5 +8,10 @@ namespace NameSorter.Model
 	{
 		public string givenNames { get; set; }
 		public string surname { get; set; }
+
+		public override string ToString()
+		{
+			return givenNames + " " + surname;
+		}
 	}
 }

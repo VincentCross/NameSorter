@@ -42,7 +42,7 @@ namespace NameSorter.Controller
 			}
 		}
 
-		public IEnumerable<Name> GetAllNames()
+		public List<Name> GetAllNames()
 		{
 			return _nameList;
 		}
@@ -54,7 +54,7 @@ namespace NameSorter.Controller
 			return _nameList.Find(nl => nl.givenNames == nameToFind.givenNames && nl.surname == nameToFind.surname);
 		}
 
-		public void SortBySurname()
+		public void Sort()
 		{
 			_nameList.Sort(delegate(Name n1, Name n2)
 			{
