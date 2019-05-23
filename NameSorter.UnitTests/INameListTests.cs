@@ -1,6 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NameSorter.Controller;
-using NameSorter.Model;
 using System.Collections.Generic;
 
 namespace NameSorter.UnitTests
@@ -17,7 +16,7 @@ namespace NameSorter.UnitTests
 			INameList nameList = new NameList();
 
 			// Assert
-			Assert.IsTrue(nameList.GetAllNames().Count == 0);
+			Assert.IsTrue(nameList.GetAllNames().Length == 0);
 		}
 
 		[TestMethod]
@@ -30,7 +29,7 @@ namespace NameSorter.UnitTests
 			INameList nameList = new NameList(nameArray);
 
 			// Assert
-			Assert.IsTrue(nameList.GetAllNames().Count == 2);
+			Assert.IsTrue(nameList.GetAllNames().Length == 2);
 		}
 
 		[TestMethod]
@@ -89,7 +88,7 @@ namespace NameSorter.UnitTests
 			nameList.AddName(testName);
 
 			// Assert
-			Assert.IsTrue(nameList.GetAllNames().Count == 0);
+			Assert.IsTrue(nameList.GetAllNames().Length == 0);
 		}
 
 		[TestMethod]
@@ -103,7 +102,7 @@ namespace NameSorter.UnitTests
 			nameList.AddName(testName);
 
 			// Assert
-			Assert.IsTrue(nameList.GetAllNames().Count == 0);
+			Assert.IsTrue(nameList.GetAllNames().Length == 0);
 		}
 
 		
@@ -122,12 +121,12 @@ namespace NameSorter.UnitTests
 
 			// Act
 			nameList.Sort();
-			List<Name> result = nameList.GetAllNames();
+			var result = nameList.GetAllNames();
 
 			// Assert
 			for (int i = 0; i < nameArray.Length; i++)
 			{
-				Assert.IsTrue(result[i].givenNames + " " + result[i].surname == nameArray[i]);
+				Assert.IsTrue(result[i] == nameArray[i]);
 			}
 		}
 
@@ -146,14 +145,14 @@ namespace NameSorter.UnitTests
 
 			// Act
 			nameList.Sort();
-			List<Name> result = nameList.GetAllNames();
+			var result = nameList.GetAllNames();
 
 			// Assert
-			Assert.IsTrue(result[0].givenNames == "Order1");
-			Assert.IsTrue(result[1].givenNames == "Order2");
-			Assert.IsTrue(result[2].givenNames == "Order3");
-			Assert.IsTrue(result[3].givenNames == "Order4");
-			Assert.IsTrue(result[4].givenNames == "Order5");
+			Assert.IsTrue(result[0] == "Order1 Andrews");
+			Assert.IsTrue(result[1] == "Order2 Johnson");
+			Assert.IsTrue(result[2] == "Order3 Miles");
+			Assert.IsTrue(result[3] == "Order4 Peerson");
+			Assert.IsTrue(result[4] == "Order5 Wender");
 		}
 
 		[TestMethod]
@@ -171,14 +170,14 @@ namespace NameSorter.UnitTests
 
 			// Act
 			nameList.Sort();
-			List<Name> result = nameList.GetAllNames();
+			var result = nameList.GetAllNames();
 
 			// Assert
-			Assert.IsTrue(result[0].givenNames == "Order1");
-			Assert.IsTrue(result[1].givenNames == "Order2");
-			Assert.IsTrue(result[2].givenNames == "Order3");
-			Assert.IsTrue(result[3].givenNames == "Order4");
-			Assert.IsTrue(result[4].givenNames == "Order5");
+			Assert.IsTrue(result[0] == "Order1 Andrews");
+			Assert.IsTrue(result[1] == "Order2 Johnson");
+			Assert.IsTrue(result[2] == "Order3 Miles");
+			Assert.IsTrue(result[3] == "Order4 Wender");
+			Assert.IsTrue(result[4] == "Order5 Wender");
 		}
 	}
 }

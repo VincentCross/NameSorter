@@ -9,7 +9,7 @@ namespace NameSorter.Controller
 	{
 		void AddName(string name);
 		Name GetName(string name);
-		List<Name> GetAllNames();
+		string[] GetAllNames();
 		void Sort();
 	}
 }

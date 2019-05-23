@@ -42,9 +42,10 @@ namespace NameSorter.Controller
 			}
 		}
 
-		public List<Name> GetAllNames()
+		public string[] GetAllNames()
 		{
-			return _nameList;
+			
+			return _nameList.ConvertAll(nm => nm.givenNames + " " + nm.surname).ToArray();
 		}
 
 		public Name GetName(string name)
@@ -54,6 +55,7 @@ namespace NameSorter.Controller
 			return _nameList.Find(nl => nl.givenNames == nameToFind.givenNames && nl.surname == nameToFind.surname);
 		}
 
+		// Sorts by last name and then first name.
 		public void Sort()
 		{
 			_nameList.Sort(delegate(Name n1, Name n2)
@@ -85,7 +87,7 @@ namespace NameSorter.Controller
 				string[] splitName = name.Split(' ');
 
 				// Determine last name
-				string splitSurname = splitName[splitName.Length - 1];
+				string splitSurname = splitName[splitName.Length - 1].Trim();
 
 				string splitGivenNames = "";
 				// If string contains more than one word and thus has given names

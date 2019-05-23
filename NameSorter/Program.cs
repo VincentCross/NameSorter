@@ -1,7 +1,6 @@
 ﻿using NameSorter.Controller;
-using NameSorter.Model;
 using System;
-using System.Collections.Generic;
+using System.IO;
 
 namespace NameSorter
 {
@@ -9,32 +8,28 @@ namespace NameSorter
 	{
 		static void Main(string[] args)
 		{
-			string[] nameArray = {
-				"Order2 Johnson",
-				"Order3 Miles",
-				"Order5 Wender",
-				"Order4 Wender",
-				"Order1 Andrews"
-			};
-
-			INameList nameList = new NameList(nameArray);
-			
-
-			Console.WriteLine("-------------Presort---------------");
-			foreach (Name name in (List<Name>)nameList.GetAllNames())
+			if ( args.Length <= 0 || String.IsNullOrEmpty(args[0]))
 			{
-				Console.WriteLine(name);
-			};
-			Console.WriteLine("-----------------------------------");
+				Console.WriteLine("Use: name-sorter <filepath>");
+				return;
+			}
 
+			if (!File.Exists(args[0]))
+			{
+				Console.WriteLine("File not found: " + args[0]);
+				return;
+			}
+
+			IFileController fc = new FileController(args[0]);
+			INameList nameList = new NameList(fc.Read());
 			nameList.Sort();
 
-			Console.WriteLine("-------------Postsort--------------");
-			foreach (Name name in (List<Name>)nameList.GetAllNames())
+			foreach (var name in nameList.GetAllNames())
 			{
 				Console.WriteLine(name);
 			};
-			Console.WriteLine("-----------------------------------");
+
+			fc.Write(nameList.GetAllNames());
 		}
 	}
 }
