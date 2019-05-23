@@ -20,8 +20,9 @@ namespace NameSorter
 				return;
 			}
 
-			IFileController fc = new FileController(args[0]);
-			INameList nameList = new NameList(fc.Read());
+			IFileController inputFC = new FileController(args[0]);
+			IFileController outputFC = new FileController("./sorted-names-list.txt");
+			INameList nameList = new NameList(inputFC.Read());
 			nameList.Sort();
 
 			foreach (var name in nameList.GetAllNames())
@@ -29,7 +30,7 @@ namespace NameSorter
 				Console.WriteLine(name);
 			};
 
-			fc.Write(nameList.GetAllNames());
+			outputFC.Write(nameList.GetAllNames());
 		}
 	}
 }

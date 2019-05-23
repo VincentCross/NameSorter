@@ -1,5 +1,6 @@
 .vs/*
-*/bin/*
 */obj/*
 packages/*
 */Properties/*
+NameSorter.UnitTests/bin/*
+NameSorter/bin/Debug*
